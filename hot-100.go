@@ -55,3 +55,26 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return dummy.Next
 }
+
+// 3. 无重复字符的最长子串
+// https://leetcode.cn/problems/longest-substring-without-repeating-characters/
+// 熟悉map的用法 + 字符串遍历的是字节byte
+func lengthOfLongestSubstring(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	dict := make(map[byte]bool)
+	start, res := 0, 1
+	for i := 0; i < len(s); i++ {
+		for dict[s[i]] {
+			delete(dict, s[start])
+			start++
+		}
+		dict[s[i]] = true
+
+		if i-start+1 > res {
+			res = i - start + 1
+		}
+	}
+	return res
+}

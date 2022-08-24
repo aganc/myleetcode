@@ -78,3 +78,40 @@ func lengthOfLongestSubstring(s string) int {
 	}
 	return res
 }
+
+// 4. 寻找两个正序数组的中位数
+// https://leetcode.cn/problems/median-of-two-sorted-arrays/
+
+// 5. 最长回文子串
+// https://leetcode.cn/problems/longest-palindromic-substring/
+// 动态规划思想
+func longestPalindrome(s string) string {
+	if len(s) == 1 {
+		return s
+	}
+	dp := make([][]bool, len(s))
+	for i := 0; i < len(s); i++ {
+		dp[i] = make([]bool, len(s))
+		dp[i][i] = true
+	}
+	max := 1
+	start := 0
+	for j := 1; j < len(s); j++ {
+		for i := 0; i < j; i++ {
+			if s[i] != s[j] {
+				dp[i][j] = false
+			} else {
+				if j-i < 3 {
+					dp[i][j] = true
+				} else {
+					dp[i][j] = dp[i+1][j-1]
+				}
+			}
+			if dp[i][j] && j-i+1 > max {
+				max = j - i + 1
+				start = i
+			}
+		}
+	}
+	return s[start : start+max]
+}

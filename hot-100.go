@@ -1,5 +1,7 @@
 package myleetcode
 
+import "sort"
+
 // 1. 两数之和
 // https://leetcode.cn/problems/two-sum/
 // 使用hashmap降低时间复杂度
@@ -115,3 +117,66 @@ func longestPalindrome(s string) string {
 	}
 	return s[start : start+max]
 }
+
+// 10. 正则表达式匹配
+// https://leetcode.cn/problems/regular-expression-matching/
+
+// 11. 盛最多水的容器
+// https://leetcode.cn/problems/container-with-most-water/
+func maxArea(height []int) int {
+	l, r := 0, len(height)-1
+	res := 0
+	for l < r {
+		minh := height[l]
+		if height[l] > height[r] {
+			minh = height[r]
+		}
+		area := minh * (r - l)
+		if area > res {
+			res = area
+		}
+		if height[l] > height[r] {
+			r--
+		} else {
+			l++
+		}
+	}
+	return res
+}
+
+// 15. 三数之和
+// https://leetcode.cn/problems/3sum/
+func threeSum(nums []int) [][]int {
+	res := make([][]int, 0)
+	sort.Ints(nums)
+	for i := 0; i < len(nums)-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		if nums[i] > 0 {
+			break
+		}
+		l, r := i+1, len(nums)-1
+		for l < r {
+			if nums[i]+nums[l]+nums[r] > 0 {
+				r--
+			} else if nums[i]+nums[l]+nums[r] < 0 {
+				l++
+			} else {
+				res = append(res, []int{nums[i], nums[l], nums[r]})
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+				r--
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+			}
+		}
+	}
+	return res
+}
+
+// 17. 电话号码的字母组合
+// https://leetcode.cn/problems/letter-combinations-of-a-phone-number/

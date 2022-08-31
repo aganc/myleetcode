@@ -180,3 +180,60 @@ func threeSum(nums []int) [][]int {
 
 // 17. 电话号码的字母组合
 // https://leetcode.cn/problems/letter-combinations-of-a-phone-number/
+func letterCombinations(digits string) []string {
+	res := make([]string, 0)
+	if digits == "" {
+		return res
+	}
+	numsmap := [10]string{
+		"", "", "abc", "def",
+		"ghi", "jkl", "mno",
+		"pqrs", "tuv", "wxyz",
+	}
+	var trackback func(string, int)
+	trackback = func(tmp string, start int) {
+		if len(tmp) == len(digits) {
+			res = append(res, tmp)
+			return
+		}
+		index := digits[start] - '0'
+		nums := numsmap[index]
+		for i := 0; i < len(nums); i++ {
+			tmp += string(nums[i])
+			trackback(tmp, start+1)
+			tmp = tmp[:len(tmp)-1]
+		}
+	}
+	trackback("", 0)
+	return res
+}
+
+// 19. 删除链表的倒数第 N 个结点
+// https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	cur := &ListNode{
+		Val:  0,
+		Next: head,
+	}
+	tmp := cur
+	dummy := cur
+	l := 0
+	for tmp.Next != nil {
+		l++
+		tmp = tmp.Next
+	}
+	index := l - n
+	for index > 0 {
+		cur = cur.Next
+		index--
+	}
+	cur.Next = cur.Next.Next
+	return dummy.Next
+}

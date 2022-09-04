@@ -237,3 +237,71 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	cur.Next = cur.Next.Next
 	return dummy.Next
 }
+
+// 20. 有效的括号
+// https://leetcode.cn/problems/valid-parentheses/
+func isValid(s string) bool {
+	queue := make([]byte, 0)
+	for i := range s {
+		if len(queue) > 0 && s[i] == ')' {
+			if queue[len(queue)-1] != '(' {
+				return false
+			}
+			queue = queue[:len(queue)-1]
+		} else if len(queue) > 0 && s[i] == ']' {
+			if queue[len(queue)-1] != '[' {
+				return false
+			}
+			queue = queue[:len(queue)-1]
+
+		} else if len(queue) > 0 && s[i] == '}' {
+			if queue[len(queue)-1] != '{' {
+				return false
+			}
+			queue = queue[:len(queue)-1]
+		} else {
+			queue = append(queue, s[i])
+		}
+	}
+	if len(queue) != 0 {
+		return false
+	}
+	return true
+}
+
+// 21. 合并两个有序链表
+// https://leetcode.cn/problems/merge-two-sorted-lists/
+
+// Definition for singly-linked list.
+//type ListNode struct {
+//     Val int
+//     Next *ListNode
+//}
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	dummy := &ListNode{
+		Val: 0,
+	}
+	cur := dummy
+	for list1 != nil || list2 != nil {
+		if list1 == nil {
+			cur.Next = list2
+			break
+		}
+		if list2 == nil {
+			cur.Next = list1
+			break
+		}
+		if list1.Val > list2.Val {
+			cur.Next = list2
+			list2 = list2.Next
+		} else {
+			cur.Next = list1
+			list1 = list1.Next
+		}
+		cur = cur.Next
+	}
+	return dummy.Next
+}
+
+// 22. 括号生成
+// https://leetcode.cn/problems/generate-parentheses/

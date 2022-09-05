@@ -271,12 +271,6 @@ func isValid(s string) bool {
 
 // 21. 合并两个有序链表
 // https://leetcode.cn/problems/merge-two-sorted-lists/
-
-// Definition for singly-linked list.
-//type ListNode struct {
-//     Val int
-//     Next *ListNode
-//}
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	dummy := &ListNode{
 		Val: 0,
@@ -305,3 +299,61 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 
 // 22. 括号生成
 // https://leetcode.cn/problems/generate-parentheses/
+func generateParenthesis(n int) []string {
+	res := make([]string, 0)
+
+	var tracback func(string, int, int)
+	tracback = func(path string, left, right int) {
+		if len(path) == 2*n {
+			res = append(res, path)
+			return
+		}
+
+		if left < n {
+			tracback(path+"(", left+1, right)
+		}
+		if right < left {
+			tracback(path+")", left, right+1)
+		}
+	}
+	tracback("", 0, 0)
+	return res
+}
+
+// 23. 合并K个升序链表
+// https://leetcode.cn/problems/merge-k-sorted-lists/submissions/
+func mergeKLists(lists []*ListNode) *ListNode {
+	if len(lists) == 1 {
+		return lists[0]
+	}
+	if len(lists) == 0 {
+		return nil
+	}
+
+	newlist := lists[0]
+	for i := 1; i < len(lists); i++ {
+		newlist = merge2Lists(newlist, lists[i])
+	}
+	return newlist
+}
+func merge2Lists(list1 *ListNode, list2 *ListNode) *ListNode {
+	dummy := &ListNode{Val: 0}
+	cur := dummy
+	for list1 != nil && list2 != nil {
+		if list1.Val > list2.Val {
+			cur.Next = list2
+			list2 = list2.Next
+		} else {
+			cur.Next = list1
+			list1 = list1.Next
+		}
+		cur = cur.Next
+	}
+	if list1 == nil && list2 != nil {
+		cur.Next = list2
+	}
+	if list2 == nil && list1 != nil {
+		cur.Next = list1
+	}
+	return dummy.Next
+}

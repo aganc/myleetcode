@@ -357,3 +357,25 @@ func merge2Lists(list1 *ListNode, list2 *ListNode) *ListNode {
 	}
 	return dummy.Next
 }
+
+// 31. 下一个排列
+// https://leetcode.cn/problems/next-permutation/
+func nextPermutation(nums []int) {
+	i, j, k := len(nums)-2, len(nums)-1, len(nums)-1
+	for i >= 0 && nums[i] >= nums[j] {
+		i--
+		j--
+	}
+	if i >= 0 {
+		for k >= 0 && nums[i] >= nums[k] {
+			k--
+		}
+		nums[i], nums[k] = nums[k], nums[i]
+	}
+	i, j = i+1, len(nums)-1
+	for i < j {
+		nums[i], nums[j] = nums[j], nums[i]
+		i++
+		j--
+	}
+}

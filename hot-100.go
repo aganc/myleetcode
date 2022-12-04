@@ -381,28 +381,45 @@ func nextPermutation(nums []int) {
 }
 
 // 32. 最长有效括号
-// https://leetcode.cn/problems/longest-valid-parentheses/
-func search(nums []int, target int) int {
-	left, right := 0, len(nums)-1
-
-	for left <= right {
-		mid := left + (right-left)/2
-		if target == nums[mid] {
-			return mid
+// https://leetcode.cn/problems/longest-valid-parentheses/?favorite=2cktkvj
+func longestValidParentheses(s string) int {
+	if s == "" {
+		return 0
+	}
+	res := 0
+	// 动态规划
+	dp := make([]int, len(s))
+	for i := range s {
+		if i == 0 {
+			continue
 		}
-		if nums[left] <= nums[mid] {
-			if nums[left] <= target && target < nums[mid] {
-				right = mid - 1
+		// s[i] = '(' dp[i] = 0
+		// s[i] = ')'
+		if s[i] == ')' && s[i-1] == '(' {
+			if i-2 >= 0 {
+				dp[i] = dp[i-2] + 2
 			} else {
-				left = mid + 1
+				dp[i] = 2
 			}
-		} else {
-			if target > nums[mid] && target <= nums[right] {
-				left = mid + 1
-			} else {
-				right = mid - 1
+		}
+
+		if s[i] == ')' && s[i-1] == ')' {
+			// 最左边对应'('，则dp[i] = dp[i-1] + 2
+			if i-dp[i-1]-1 >= 0 {
+				if s[i-dp[i-1]-1] == '(' {
+					dp[i] = dp[i-1] + 2
+					// 考虑...(())之前的
+					if i-dp[i-1]-2 >= 0 {
+						dp[i] += dp[i-dp[i-1]-2]
+					}
+				}
 			}
+		}
+
+		if dp[i] > res {
+			res = dp[i]
 		}
 	}
-	return -1
+	return res
+
 }

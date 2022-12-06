@@ -74,3 +74,50 @@ func longestPalindrome(s string) string {
 }
 
 
+// 层序遍历的变种，添加倒序flag
+/**
+* Definition for a binary tree node.
+ */
+type TreeNode struct {
+
+    Val int
+   Left *TreeNode
+   Right *TreeNode
+}
+
+func zigzagLevelOrder(root *TreeNode) [][]int {
+	result := [][]int{}
+	if root == nil{
+		return result
+	}
+	queue := []*TreeNode{root}
+	flag := false
+	for {
+		tmpval := []int{}
+		q := queue
+		queue = nil
+		for _,node := range q{
+			tmpval = append(tmpval, node.Val)
+			if node.Left != nil{
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil{
+				queue = append(queue, node.Right)
+			}
+		}
+		if flag == true{
+			for i, n := 0, len(tmpval); i < n/2; i++ {
+				tmpval[i], tmpval[n-1-i] = tmpval[n-1-i], tmpval[i]
+			}
+		}
+		result = append(result, tmpval)
+		flag = !flag
+		if len(queue) == 0{
+			break
+		}
+	}
+
+	return result
+}
+
+

@@ -74,7 +74,7 @@ func longestPalindrome(s string) string {
 }
 
 
-// 层序遍历的变种，添加倒序flag
+// 层序遍历的变种，添加倒序flag， 锯齿遍历二叉树
 /**
 * Definition for a binary tree node.
  */
@@ -128,6 +128,7 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
  *     Right *TreeNode
  * }
  */
+// 最近公共祖先
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	if root == nil || root.Val == p.Val || root.Val == q.Val{
 		return root
@@ -140,4 +141,32 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		return left
 	}
 	return root
+}
+
+// 全排列，用回溯法，注意还原，回溯是一个专题
+func permute(nums []int) [][]int {
+	var res [][]int
+	visited := map[int]bool{}
+
+	var backTrack func(path []int)
+	backTrack = func(path []int) {
+		if len(path) == len(nums) {
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+		for _, n := range nums{
+			if visited[n]{
+				continue
+			}
+			path = append(path, n)
+			visited[n] = true
+			backTrack(path)
+			path = path[: len(path) - 1]
+			visited[n] = false
+		}
+	}
+	backTrack([]int{})
+	return res
 }

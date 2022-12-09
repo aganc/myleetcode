@@ -170,3 +170,46 @@ func permute(nums []int) [][]int {
 	backTrack([]int{})
 	return res
 }
+// 螺旋矩阵，采用模拟法，注意边界值x --  ，y ++的处理
+func spiralOrder(matrix [][]int) []int {
+	m, n := len(matrix), len(matrix[0])
+	res := []int{}
+	if m == 0 && n ==0 {
+		return res
+	}
+	x, y := 0, -1
+	right, down, left, up := n-1, m-1, 0, 0
+	for left <= right && up <= down{
+		// 向右
+		for y++; y <= right; y ++{
+			res = append(res, matrix[x][y])
+		}
+		up ++
+		y --
+		//fmt.Printf("%v,%v,%v,%v, res = %v\n",right,down,left,up,res)
+		// 向下
+		for x++; x <= down; x ++{
+			res = append(res, matrix[x][y])
+		}
+		right --
+		x --
+		if left <= right && up <= down{
+			// 向左
+			for y--;y >= left; y --{
+				res= append(res, matrix[x][y])
+			}
+			down --
+			y ++
+			//fmt.Printf("%v,%v,%v,%v, res = %v\n",right,down,left,up,res)
+			// 向上
+			for x--; x >= up; x --{
+				res = append(res,matrix[x][y])
+			}
+			left ++
+			x ++
+		}
+		// fmt.Printf("%v,%v,%v,%v, res = %v\n",right,down,left,up,res)
+		//fmt.Printf("%v,%v,%v,%v, res = %v\n",right,down,left,up,res)
+	}
+	return res
+}

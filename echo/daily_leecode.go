@@ -213,3 +213,33 @@ func spiralOrder(matrix [][]int) []int {
 	}
 	return res
 }
+
+
+// 反转链表2  穿针引线法，一次遍历，需要用到三个变量
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	if head == nil || left == right{
+		return head
+	}
+	res := &ListNode{Val:-1}
+	res.Next = head
+	pre := res
+	for i:=0; i< left-1; i ++{
+		pre = pre.Next
+	}
+	cur := pre.Next
+	for i:=0; i < right-left; i++{
+		next := cur.Next
+		cur.Next = next.Next
+		next.Next = pre.Next
+		pre.Next = next
+
+	}
+	return res.Next
+}

@@ -1,4 +1,4 @@
-package myleetcode
+package main
 
 import "sort"
 
@@ -422,4 +422,152 @@ func longestValidParentheses(s string) int {
 	}
 	return res
 
+}
+
+// 33. 搜索旋转排序数组
+// https://leetcode.cn/problems/search-in-rotated-sorted-array/description/?favorite=2cktkvj&orderBy=most_relevant
+func search(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	// 二分法
+	for left <= right {
+		mid := left + (right-left)/2
+		if target == nums[mid] {
+			return mid
+		}
+		if nums[left] <= nums[mid] {
+			if nums[left] <= target && target < nums[mid] {
+				right = mid - 1
+			} else {
+				left = mid + 1
+			}
+		} else {
+			if nums[mid] < target && target <= nums[right] {
+				left = mid + 1
+			} else {
+				right = mid - 1
+			}
+		}
+	}
+
+	return -1
+}
+
+// 34. 在排序数组中查找元素的第一个和最后一个位置
+// https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/description/?favorite=2cktkvj&orderBy=most_relevant
+func searchRange(nums []int, target int) []int {
+	// 二分找左边界
+	start := searchLeftRange(nums, target)
+	if start == len(nums) || nums[start] != target {
+		return []int{-1, -1}
+	}
+	// 二分找右边界
+	last := searchRightRange(nums, target)
+	return []int{start, last - 1}
+}
+
+func searchLeftRange(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+
+	for left <= right {
+		mid := (left + right) / 2
+		if target <= nums[mid] {
+			right = mid - 1
+		} else {
+			left = mid + 1
+		}
+	}
+	return left
+}
+func searchRightRange(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := (left + right) / 2
+		if target >= nums[mid] {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return left
+}
+
+// 39. 组合总和
+// https://leetcode.cn/problems/combination-sum/?favorite=2cktkvj&orderBy=most_relevant
+func combinationSum(candidates []int, target int) [][]int {
+
+	res := make([][]int, 0)
+	path := make([]int, 0)
+
+	var traceback func(start int)
+	traceback = func(start int) {
+		if sum1(path) == target {
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		if sum(path) > target {
+			return
+		}
+
+		for k := start; k < len(candidates); k++ {
+			path = append(path, candidates[k])
+			traceback(k)
+			path = path[:len(path)-1]
+		}
+	}
+	traceback(0)
+	return res
+}
+func sum1(path []int) int {
+	s := 0
+	for i := range path {
+		s += path[i]
+	}
+	return s
+}
+
+// 40. 组合总和 II
+// https://leetcode.cn/problems/combination-sum-ii/
+func combinationSum2(candidates []int, target int) [][]int {
+
+	sort.Ints(candidates)
+	res := make([][]int, 0)
+	path := make([]int, 0)
+	history := make([]bool, len(candidates))
+
+	var traceback func(start int)
+	traceback = func(start int) {
+		if sum2(path) == target {
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			res = append(res, tmp)
+			return
+		}
+
+		if sum(path) > target {
+			return
+		}
+
+		for k := start; k < len(candidates); k++ {
+			if k > 0 && candidates[k] == candidates[k-1] && history[k-1] == false {
+				continue
+			}
+			path = append(path, candidates[k])
+			history[k] = true
+			traceback(k + 1)
+			path = path[:len(path)-1]
+			history[k] = false
+		}
+	}
+	traceback(0)
+	return res
+}
+func sum2(path []int) int {
+	s := 0
+	for i := range path {
+		s += path[i]
+	}
+	return s
 }

@@ -25,3 +25,9 @@
 #### [92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)
 
 ![image-20221210230057261](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221210230057261.png)
+
+
+
+#### [142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/)
+
+![image-20221211211019038](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221211211019038.png)

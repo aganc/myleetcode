@@ -216,13 +216,13 @@ func spiralOrder(matrix [][]int) []int {
 
 
 // 反转链表2  穿针引线法，一次遍历，需要用到三个变量
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
+/** */
+ // Definition for singly-linked list.
+ type ListNode struct {
+ 	Val int
+ 	Next *ListNode
+ }
+
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	if head == nil || left == right{
 		return head
@@ -242,4 +242,20 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 
 	}
 	return res.Next
+}
+
+ // 环形链表，最简单的办法是哈希表法
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil{
+		return head
+	}
+	setMap := make(map[*ListNode]struct{})
+	for ; head != nil; head = head.Next{
+		// fmt.Printf("map = %v", setMap)
+		if _,ok := setMap[head]; ok{
+			return head
+		}
+		setMap[head] = struct{}{}
+	}
+	return head
 }

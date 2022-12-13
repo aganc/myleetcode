@@ -259,3 +259,20 @@ func detectCycle(head *ListNode) *ListNode {
 	}
 	return head
 }
+
+// 300. 最长递增子序列  动态规划，要学习下这种写法
+func lengthOfLIS(nums []int) (ans int) {
+	dp := make([]int, len(nums))
+	for i := range dp {dp[i] = 1} // 初始化，dp[i]表示递增子序列的长度
+	for i := range nums {
+		for j := 0; j < i; j++ {
+			if nums[j] < nums[i] { // nums[i] 可加入递增子序列
+				dp[i] = max(dp[i], dp[j] + 1) // 有很多递增子序列，求这些最长递增子序列的最大长度
+			}
+		}
+	}
+	for _, d := range dp {ans = max(ans, d)}
+	return
+}
+
+func max(a, b int) int {if a > b {return a}; return b}

@@ -276,3 +276,29 @@ func lengthOfLIS(nums []int) (ans int) {
 }
 
 func max(a, b int) int {if a > b {return a}; return b}
+
+
+ // 20 有效得括号，模拟栈，先进后出
+func isValid(s string) bool {
+	sLen := len(s)
+	if sLen % 2 != 0{
+		return false
+	}
+	setMap := map[byte]byte{
+		']':'[',
+		'}':'{',
+		')':'(',
+	}
+	var tmp []byte
+	for i := 0; i < sLen; i ++{
+		if s[i] == '[' || s[i] == '(' || s[i] == '{'{
+			tmp = append(tmp, s[i])
+			continue
+		}
+		if len(tmp) <= 0 || tmp[len(tmp) - 1] != setMap[s[i]]{
+			return false
+		}
+		tmp = tmp[:len(tmp) - 1]
+	}
+	return len(tmp) == 0
+}

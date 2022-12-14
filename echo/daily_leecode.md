@@ -37,3 +37,9 @@
 #### [300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)
 
 ![image-20221213232806972](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221213232806972.png)
+
+
+
+#### [20. 有效的括号](https://leetcode.cn/problems/valid-parentheses/)
+
+![image-20221214204825282](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221214204825282.png)

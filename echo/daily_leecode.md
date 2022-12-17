@@ -43,3 +43,14 @@
 #### [20. 有效的括号](https://leetcode.cn/problems/valid-parentheses/)
 
 ![image-20221214204825282](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221214204825282.png)
+
+#### [143. 重排链表](https://leetcode.cn/problems/reorder-list/)
+
+![image-20221215222234361](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221215222234361.png)
+
+
+
+#### [199. 二叉树的右视图](https://leetcode.cn/problems/binary-tree-right-side-view/)
+
+![image-20221217205509451](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221217205509451.png)
+

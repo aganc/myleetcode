@@ -1,5 +1,6 @@
-package echo
+package main
 
+import "fmt"
 
 // 岛屿数量，使用dfs遍历
 func numIslands(grid [][]byte) int {
@@ -301,4 +302,82 @@ func isValid(s string) bool {
 		tmp = tmp[:len(tmp) - 1]
 	}
 	return len(tmp) == 0
+}
+
+
+ // 重排链表，最基本得切片存储对应所有值
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reorderList(head *ListNode)  {
+	if head == nil{
+		return
+	}
+	var nodes []*ListNode
+	for node := head; node != nil; node = node.Next{
+		nodes = append(nodes, node)
+	}
+	// fmt.Printf("nodes: %v", nodes)
+	i ,j := 0, len(nodes)-1
+	for i < j {
+		nodes[i].Next = nodes[j]
+		i++
+		if i == j {
+			break
+		}
+
+		nodes[j].Next = nodes[i]
+		j--
+	}
+	nodes[i].Next = nil
+}
+
+// 199 二叉树的右视图，属于二叉树的层次遍历应用之一
+func rightSideView(root *TreeNode) []int {
+	if root == nil{
+		return []int{}
+	}
+	var queue []*TreeNode
+	var save []int
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		lenth := len(queue)
+		//var tmp []int
+		save = append(save, queue[lenth-1].Val)
+		for i := 0; i < lenth; i ++{
+			//tmp = append(tmp, queue[i].Val)
+			if queue[i].Left != nil {
+				queue = append(queue, queue[i].Left)
+			}
+			if queue[i].Right != nil {
+				queue = append(queue, queue[i].Right)
+			}
+		}
+		queue = queue[lenth:]
+	}
+	return save
+}
+
+func main(){
+	head := []int{1,2,3,4,5}
+	nodeHead := &ListNode{Val:0, Next:nil}
+	realHead := nodeHead
+	for val := range head{
+		node := &ListNode{Val:val, Next:nil}
+		nodeHead.Next = node
+		nodeHead = nodeHead.Next
+	}
+
+	reorderList(realHead.Next)
+	head = []int{}
+	for realHead != nil{
+		head = append(head, realHead.Val)
+		realHead = realHead.Next
+	}
+	fmt.Print("head : %v", head)
+
 }

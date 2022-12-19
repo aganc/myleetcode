@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 // 岛屿数量，使用dfs遍历
 func numIslands(grid [][]byte) int {
@@ -360,6 +363,32 @@ func rightSideView(root *TreeNode) []int {
 		queue = queue[lenth:]
 	}
 	return save
+}
+
+// 合并区间，排序即可
+func merge(intervals [][]int) [][]int {
+	sort.Slice(intervals, func(i,j int) bool{
+		return intervals[i][0] < intervals[j][0]
+	})
+	var res [][]int
+	for _, val := range intervals{
+		if len(res) == 0 {
+			res = append(res, val)
+			continue
+		}
+		if val[0] > res[len(res)-1][1]{
+			res = append(res, val)
+		} else {
+			res[len(res)-1][1] = max(res[len(res)-1][1], val[1])
+		}
+	}
+	return res
+}
+func max(x, y int) int{
+	if x < y {
+		return y
+	}
+	return x
 }
 
 func main(){

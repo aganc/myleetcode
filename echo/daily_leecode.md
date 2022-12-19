@@ -54,3 +54,6 @@
 
 ![image-20221217205509451](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221217205509451.png)
 
+#### [56. 合并区间](https://leetcode.cn/problems/merge-intervals/)
+
+![image-20221219224618085](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221219224618085.png)

@@ -384,11 +384,66 @@ func merge(intervals [][]int) [][]int {
 	}
 	return res
 }
-func max(x, y int) int{
-	if x < y {
-		return y
+//func max(x, y int) int{
+//	if x < y {
+//		return y
+//	}
+//	return x
+//}
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+// 删除排序链表重复元素
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil {
+		return head
 	}
-	return x
+	cur := &ListNode{0, head}
+	res := cur
+	for cur.Next != nil && cur.Next.Next != nil{
+		if cur.Next.Val == cur.Next.Next.Val {
+			x := cur.Next.Val
+			for cur.Next != nil && cur.Next.Val == x{
+				cur.Next = cur.Next.Next
+			}
+		} else {
+			cur = cur.Next
+		}
+	}
+	return res.Next
+}
+
+//  下一个排列
+func nextPermutation(nums []int)  {
+	lenth := len(nums)
+	if lenth <= 1{
+		return
+	}
+	//lenth --
+	for lenth >= 1 {
+		lenth --
+		if lenth == 0 || nums[lenth - 1] < nums [lenth]{
+			break
+		}
+	}
+	//fmt.Printf("lenth : %d", lenth)
+	if lenth == 0 {
+		sort.Ints(nums[:])
+		return
+	}
+	lenth --
+	for i := len(nums) -1; i > lenth; i -- {
+		if nums[i] > nums[lenth] {
+			nums[i], nums[lenth] = nums[lenth], nums[i]
+			sort.Ints(nums[lenth+1:])
+			return
+		}
+	}
 }
 
 func main(){

@@ -50,3 +50,10 @@
 
 ![image-20221219224618085](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221219224618085.png)
 
+#### [82. 删除排序链表中的重复元素 II](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/)
+
+![image-20221222154141664](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221222154141664.png)
+
+#### [31. 下一个排列](https://leetcode.cn/problems/next-permutation/)
+
+![image-20221222154211296](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221222154211296.png)

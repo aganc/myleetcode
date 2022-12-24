@@ -57,3 +57,9 @@
 #### [31. 下一个排列](https://leetcode.cn/problems/next-permutation/)
 
 ![image-20221222154211296](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221222154211296.png)
+
+
+
+#### [8. 字符串转换整数 (atoi)](https://leetcode.cn/problems/string-to-integer-atoi/)
+
+![image-20221224201744290](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221224201744290.png)

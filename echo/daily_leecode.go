@@ -446,6 +446,81 @@ func nextPermutation(nums []int)  {
 	}
 }
 
+func myAtoi(s string) int {
+	result, sign, i, n := 0, 1, 0, len(s)
+	const MinInt32, MaxInt32 = -1 << 31, 1<<31 - 1
+
+	for ; i < n && s[i] == ' '; i++ {
+	}
+	if i >= n {
+		return 0
+	}
+
+	switch s[i] {
+	case '+':
+		i++
+	case '-':
+		i++
+		sign = -1
+	}
+
+	for ; i < n; i++ {
+		if s[i] < 48 || s[i] > 57 {
+			break
+		}
+
+		result = result*10 + int(s[i]-'0')
+		if sign*result < MinInt32 {
+			return MinInt32
+		}
+		if sign*result > MaxInt32 {
+			return MaxInt32
+		}
+	}
+
+	return sign * result
+}
+
+func myAtoiWj(s string) int {
+	lenth ,index ,flag := len(s), 0, 1
+	for index < lenth {  // 去掉前导字符和处理正负号
+		if s[index] == '-' {
+			flag = -1
+			index ++
+			break
+		} else if s[index] == '+' {
+			index ++
+			break
+		} else if s[index] >= '0' && s[index] <= '9'{
+			break
+		} else if s[index] == ' ' {
+			index ++
+		} else {
+			return 0
+		}
+
+	}
+	res ,max := 0 ,(((1 << 30)-1)<<1) + 1
+	min := - max-1
+	for index < lenth {
+		//fmt.Printf("index : %d,res : %d",index, res)
+		if s[index] >= '0' && s[index] <= '9' {
+			res = res * 10 + int(s[index]) - 48
+			// fmt.Printf("res : %d, int s[index]: %d, s[index] : %v", res, int(s[index]), s[index])
+			if flag  * res <= min {
+				return min
+			} else if flag * res >= max {
+				return max
+			}
+			index ++
+		} else {
+			break
+		}
+	}
+
+	return flag * res
+}
+
 func main(){
 	head := []int{1,2,3,4,5}
 	nodeHead := &ListNode{Val:0, Next:nil}

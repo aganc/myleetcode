@@ -1,4 +1,4 @@
-package main
+package myleetcode
 
 import "sort"
 
@@ -507,7 +507,7 @@ func combinationSum(candidates []int, target int) [][]int {
 			return
 		}
 
-		if sum(path) > target {
+		if sum1(path) > target {
 			return
 		}
 
@@ -531,7 +531,6 @@ func sum1(path []int) int {
 // 40. 组合总和 II
 // https://leetcode.cn/problems/combination-sum-ii/
 func combinationSum2(candidates []int, target int) [][]int {
-
 	sort.Ints(candidates)
 	res := make([][]int, 0)
 	path := make([]int, 0)
@@ -546,7 +545,7 @@ func combinationSum2(candidates []int, target int) [][]int {
 			return
 		}
 
-		if sum(path) > target {
+		if sum2(path) > target {
 			return
 		}
 
@@ -570,4 +569,31 @@ func sum2(path []int) int {
 		s += path[i]
 	}
 	return s
+}
+
+// 42. 接雨水
+// https://leetcode.cn/problems/trapping-rain-water/?favorite=2cktkvj
+
+// 46. 全排列
+// https://leetcode.cn/problems/permutations/?favorite=2cktkvj
+
+// 48. 旋转图像
+// https://leetcode.cn/problems/rotate-image/?favorite=2cktkvj
+
+// 49. 字母异位词分组
+// https://leetcode.cn/problems/group-anagrams/?favorite=2cktkvj
+
+// SortColors 75. 颜色分类
+// https://leetcode.cn/problems/sort-colors/?favorite=2cktkvj
+func SortColors(nums []int) {
+	for k := range nums {
+		left := k
+		right := k + 1
+		for right < len(nums) {
+			if nums[left] > nums[right] {
+				nums[left], nums[right] = nums[right], nums[left]
+			}
+			right += 1
+		}
+	}
 }

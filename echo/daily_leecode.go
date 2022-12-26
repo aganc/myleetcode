@@ -446,6 +446,7 @@ func nextPermutation(nums []int)  {
 	}
 }
 
+// 8 字符串转整数
 func myAtoi(s string) int {
 	result, sign, i, n := 0, 1, 0, len(s)
 	const MinInt32, MaxInt32 = -1 << 31, 1<<31 - 1
@@ -520,6 +521,65 @@ func myAtoiWj(s string) int {
 
 	return flag * res
 }
+
+
+// 6269. 到目标字符串的最短距离
+func closetTarget(words []string, target string, startIndex int) int {
+	n := len(words)
+	ans := n
+	for i, s := range words {
+		if s == target {
+			ans = min(ans, min(abs(i-startIndex), n-abs(i-startIndex)))
+		}
+	}
+	if ans == n {
+		return -1
+	}
+	return ans
+}
+
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
+}
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
+// 1143. 最长公共子序列
+func longestCommonSubsequence(text1 string, text2 string) int {
+	len1, len2 := len(text1), len(text2)
+	if len1 == 0 || len2 == 0 {
+		return 0
+	}
+	dp := make([][]int, len1 + 1)
+	for i := range dp {
+		dp[i] = make([]int, len2 + 1)
+	}
+
+	for i, v1 := range text1 {
+		for j, v2 := range text2 {
+			if v1 == v2 {
+				dp[i+1][j+1] = dp[i][j] + 1
+			} else {
+				dp[i+1][j+1] = max(dp[i+1][j], dp[i][j+1])
+			}
+		}
+	}
+	return dp[len1][len2]
+}
+//func max (x, y int) int {
+//	if x > y {
+//		return x
+//	}
+//	return y
+//}
 
 func main(){
 	head := []int{1,2,3,4,5}

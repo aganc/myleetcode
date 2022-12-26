@@ -63,3 +63,15 @@
 #### [8. 字符串转换整数 (atoi)](https://leetcode.cn/problems/string-to-integer-atoi/)
 
 ![image-20221224201744290](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221224201744290.png)
+
+
+
+#### [6269. 到目标字符串的最短距离](https://leetcode.cn/problems/shortest-distance-to-target-string-in-a-circular-array/)
+
+![image-20221226113230673](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221226113230673.png)
+
+
+
+#### [1143. 最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/)
+
+![image-20221226213620755](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221226213620755.png)

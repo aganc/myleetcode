@@ -581,6 +581,33 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 //	return y
 //}
 
+// 22. 括号生成  递归实现
+func generateParenthesis(n int) []string {
+	var res []string
+	if n < 1 {
+		return res
+	}
+	var digui func(left, right int, oath string)
+	digui = func (left, right int, path string) {
+		if right == n {
+			res = append(res, path)
+			return
+		}
+		if left < n {
+			// path += "("
+			digui(left+1,right, path + "(")
+			// path = path[:len(path)-1]
+		}
+		if left > right {
+			// path += ")"
+			digui(left, right + 1, path + ")")
+			// path = path[:len(path)-1]
+		}
+	}
+	digui(0,0,"")
+	return res
+}
+
 func main(){
 	head := []int{1,2,3,4,5}
 	nodeHead := &ListNode{Val:0, Next:nil}
@@ -597,6 +624,8 @@ func main(){
 		head = append(head, realHead.Val)
 		realHead = realHead.Next
 	}
-	fmt.Print("head : %v", head)
+	fmt.Print("head : %v\n", head)
+
+	fmt.Print("test 22. 括号生成  递归实现 ---------- n =3, result = %v\n",generateParenthesis(3))
 
 }

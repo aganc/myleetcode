@@ -75,3 +75,9 @@
 #### [1143. 最长公共子序列](https://leetcode.cn/problems/longest-common-subsequence/)
 
 ![image-20221226213620755](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221226213620755.png)
+
+
+
+#### [22. 括号生成](https://leetcode.cn/problems/generate-parentheses/)
+
+![image-20221227225337555](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221227225337555.png)

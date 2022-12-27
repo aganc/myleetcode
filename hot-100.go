@@ -597,3 +597,29 @@ func SortColors(nums []int) {
 		}
 	}
 }
+
+// TreeNode Definition for a binary tree node.
+// 114. 二叉树展开为链表
+// https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/description/?favorite=2cktkvj&orderBy=most_relevant
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func flatten(root *TreeNode) {
+	list := preorder(root)
+	for k := 1; k < len(list); k++ {
+		pre, cur := list[k-1], list[k]
+		pre.Left, pre.Right = nil, cur
+	}
+}
+func preorder(root *TreeNode) []*TreeNode {
+	ret := []*TreeNode{}
+	if root != nil {
+		ret = append(ret, root)
+		ret = append(ret, preorder(root.Left)...)
+		ret = append(ret, preorder(root.Right)...)
+	}
+	return ret
+}

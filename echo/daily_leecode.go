@@ -83,10 +83,9 @@ func longestPalindrome(s string) string {
 * Definition for a binary tree node.
  */
 type TreeNode struct {
-
-    Val int
-   Left *TreeNode
-   Right *TreeNode
+	Val int
+   	Left *TreeNode
+   	Right *TreeNode
 }
 
 func zigzagLevelOrder(root *TreeNode) [][]int {
@@ -606,6 +605,37 @@ func generateParenthesis(n int) []string {
 	}
 	digui(0,0,"")
 	return res
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	root := &TreeNode{preorder[0], nil, nil}
+	index := Contains(inorder[:], preorder[0])
+	// fmt.Printf("here index : %d\n", index)
+	root.Left = buildTree(preorder[1:len(inorder[:index])+1], inorder[:index])
+	root.Right = buildTree(preorder[len(inorder[:index])+1:], inorder[index+1:])
+	return root
+}
+
+func Contains(slice []int, s int) int {
+	// fmt.Printf("s : %d\n", s)
+	for index, value := range slice {
+		// fmt.Printf("index : %d, value : %d\n", index, value)
+		if value == s {
+			return index
+		}
+	}
+	return len(slice)
 }
 
 func main(){

@@ -1,6 +1,9 @@
 package myleetcode
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 // 1. 两数之和
 // https://leetcode.cn/problems/two-sum/
@@ -622,4 +625,113 @@ func preorder(root *TreeNode) []*TreeNode {
 		ret = append(ret, preorder(root.Right)...)
 	}
 	return ret
+}
+
+// 128. 最长连续序列
+// https://leetcode.cn/problems/longest-consecutive-sequence/
+func longestConsecutive(nums []int) int {
+	numMap := make(map[int]bool)
+	for _, v := range nums {
+		numMap[v] = true
+	}
+	maxlong := 0
+	for _, num := range nums {
+		if !numMap[num-1] {
+			tmplong := 1
+			curnum := num
+			for numMap[curnum+1] {
+				curnum++
+				tmplong += 1
+			}
+			if tmplong > maxlong {
+				maxlong = tmplong
+			}
+		}
+	}
+	return maxlong
+}
+
+// 543. 二叉树的直径
+// https://leetcode.cn/problems/diameter-of-binary-tree/
+var max int
+
+func diameterOfBinaryTree(root *TreeNode) int {
+	max = 0
+	trace(root)
+	return max
+}
+
+func trace(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	a := trace(root.Left)
+	b := trace(root.Right)
+	if a+b > max {
+		max = a + b
+	}
+	return int(math.Max(float64(a), float64(b))) + 1
+}
+
+// 448. 找到所有数组中消失的数字
+// https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/
+func findDisappearedNumbers(nums []int) []int {
+	n := len(nums)
+	historyMap := make(map[int]struct{})
+	for _, key := range nums {
+		historyMap[key] = struct{}{}
+	}
+	res := []int{}
+	for i := 1; i <= n; i++ {
+		if _, ok := historyMap[i]; !ok {
+			res = append(res, i)
+		}
+	}
+	return res
+
+}
+
+// 437. 路径总和 III
+// https://leetcode.cn/problems/path-sum-iii/description/?favorite=2cktkvj&orderBy=most_relevant
+func pathSum(root *TreeNode, targetSum int) int {
+	if root == nil {
+		return 0
+	}
+
+	res := rootSum(root, targetSum)
+	res += pathSum(root.Left, targetSum)
+	res += pathSum(root.Right, targetSum)
+	return res
+}
+
+func rootSum(root *TreeNode, targetSum int) (res int) {
+	if root == nil {
+		return 0
+	}
+	val := root.Val
+	if val == targetSum {
+		res++
+	}
+
+	res += rootSum(root.Left, targetSum-val)
+	res += rootSum(root.Right, targetSum-val)
+	return res
+}
+
+// 560. 和为 K 的子数组
+// https://leetcode.cn/problems/subarray-sum-equals-k/description/?favorite=2cktkvj
+func subarraySum(nums []int, k int) int {
+	pre := 0
+	count := 0
+	mmap := make(map[int]int)
+	mmap[0] = 1
+	for i := range nums {
+		pre += nums[i]
+		if _, ok := mmap[pre-k]; ok {
+			count += mmap[pre-k]
+		}
+		mmap[pre] += 1
+	}
+	return count
+
 }

@@ -638,24 +638,46 @@ func Contains(slice []int, s int) int {
 	return len(slice)
 }
 
+//
+
+func subarraySum(nums []int, k int) int {
+	count, pre := 0, 0
+	m := map[int]int{}
+	m[0] = 1
+	for i := 0; i < len(nums); i++ {
+		pre += nums[i]
+		if _, ok := m[pre - k]; ok {
+			count += m[pre - k]
+		}
+		m[pre] += 1
+		// fmt.Print("m = %v", m)
+	}
+	return count
+}
+
+
 func main(){
-	head := []int{1,2,3,4,5}
-	nodeHead := &ListNode{Val:0, Next:nil}
-	realHead := nodeHead
-	for val := range head{
-		node := &ListNode{Val:val, Next:nil}
-		nodeHead.Next = node
-		nodeHead = nodeHead.Next
-	}
+	//head := []int{1,2,3,4,5}
+	//nodeHead := &ListNode{Val:0, Next:nil}
+	//realHead := nodeHead
+	//for val := range head{
+	//	node := &ListNode{Val:val, Next:nil}
+	//	nodeHead.Next = node
+	//	nodeHead = nodeHead.Next
+	//}
+	//
+	//reorderList(realHead.Next)
+	//head = []int{}
+	//for realHead != nil{
+	//	head = append(head, realHead.Val)
+	//	realHead = realHead.Next
+	//}
+	//fmt.Print("head : %v\n", head)
+	//
+	//fmt.Print("test 22. 括号生成  递归实现 ---------- n =3, result = %v\n",generateParenthesis(3))
 
-	reorderList(realHead.Next)
-	head = []int{}
-	for realHead != nil{
-		head = append(head, realHead.Val)
-		realHead = realHead.Next
-	}
-	fmt.Print("head : %v\n", head)
+	nums := []int{1,1,1}
+	target := 2
 
-	fmt.Print("test 22. 括号生成  递归实现 ---------- n =3, result = %v\n",generateParenthesis(3))
-
+	fmt.Print(subarraySum(nums, target))
 }

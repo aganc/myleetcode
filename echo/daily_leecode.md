@@ -87,3 +87,14 @@
 #### [105. 从前序与中序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 
 ![image-20221229225933277](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20221229225933277.png)
+
+
+
+#### [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+
+![image-20230101111554420](C:\Users\伍健\AppData\Roaming\Typora\typora-user-images\image-20230101111554420.png)
+
+
+
+
+

@@ -57,6 +57,63 @@ func reverseWords(s string) string {
 	return res[1:]
 }
 
+// 子集 用回溯法，注意golanappend的时候用copy，不然会右错乱
+func subsets(nums []int) [][]int {
+	var res [][]int
+	vis := map[int]bool{}
+	var trackBack func([]int, int)
+	trackBack = func(path []int, j int) {
+		tmp := make([]int, len(path))
+		copy(tmp, path)
+		res = append(res, tmp)
+		for i := j; i < len(nums); i ++ {
+			if vis[nums[i]] {
+				continue
+			}
+			path = append(path, nums[i])
+			vis[nums[i]] = true
+			trackBack(path, i)
+			path = path[:len(path)-1]
+			vis[nums[i]] = false
+		}
+	}
+	trackBack([]int{}, 0)
+	return res
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func sumNumbers(root *TreeNode) int {
+	res := 0
+	var traceBack func (node *TreeNode, result int)
+	traceBack = func (node * TreeNode, result int) {
+		if node == nil {
+			return
+		}
+		result = result * 10 + node.Val
+		if node.Left == nil && node.Right == nil {
+			res += result
+			// fmt.Printf("result = %d, res = %d\n", result, res)
+			return
+		}
+		// fmt.Printf("result = %d\n", result)
+		if node.Left != nil {
+			traceBack(node.Left, result)
+		}
+		if node.Right != nil {
+			traceBack(node.Right, result)
+		}
+	}
+	traceBack(root, 0)
+	return res
+}
+
 func main(){
 
 	fmt.Print()

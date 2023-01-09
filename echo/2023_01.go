@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -114,7 +115,28 @@ func sumNumbers(root *TreeNode) int {
 	return res
 }
 
+// 递归实现
+func isValidBST(root *TreeNode) bool {
+	var digui func(node *TreeNode, left int, Right int) bool
+	digui = func(node *TreeNode, Left int, Right int) bool {
+		if node == nil {
+			return true
+		}
+		if node.Val >= Right || node.Val <= Left {
+			return false
+		}
+		if digui(node.Left, Left, node.Val) == false || digui(node.Right, node.Val, Right) == false {
+			return false
+		}
+		return true
+	}
+	return digui(root, math.MinInt64, math.MaxInt64)
+}
+
 func main(){
+
+	// root := []int{1, 2, 3}
+
 
 	fmt.Print()
 }

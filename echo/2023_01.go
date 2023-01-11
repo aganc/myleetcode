@@ -133,6 +133,64 @@ func isValidBST(root *TreeNode) bool {
 	return digui(root, math.MinInt64, math.MaxInt64)
 }
 
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+// 最小路径  动态规划法
+func minPathSum(grid [][]int) int {
+	line, col := len(grid), len(grid[0])
+	for i:=1; i < line ; i ++ {
+		grid[i][0] += grid[i-1][0]
+	}
+	for j:=1; j < col; j ++ {
+		grid[0][j] += grid[0][j-1]
+	}
+	for i:=1 ; i<line ; i++ {
+		for j:=1; j < col; j++{
+			grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+		}
+	}
+	return grid[line-1][col-1]
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+// 路径和， 回溯法
+func pathSum(root *TreeNode, targetSum int) [][]int {
+	ans := [][]int{}
+	if root == nil {
+		return ans
+	}
+	var traceBack func(node *TreeNode, sum int, path []int)
+	traceBack = func(node *TreeNode, sum int, path []int) {
+		if node == nil {
+			return
+		}
+		sum += node.Val
+		path = append(path, node.Val)
+		defer func() { path = path[:len(path)-1] }()
+		if node.Left == nil && node.Right == nil && sum == targetSum {
+			ans = append(ans, append([]int(nil), path...))
+			return
+		}
+		traceBack(node.Left, sum, path)
+		traceBack(node.Right, sum, path)
+	}
+	traceBack(root, 0, []int{})
+	return ans
+}
+
 func main(){
 
 	// root := []int{1, 2, 3}
